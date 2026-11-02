@@ -1,4 +1,4 @@
-# Orbit
+# orbit
 
 ## GitHub Repository Intelligence & Developer Ecosystem Mapper
 
