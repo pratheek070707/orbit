@@ -1,0 +1,2 @@
+import { NextResponse } from "next/server";
+export function apiError(error:unknown){const message=error instanceof Error?error.message:"Unexpected server error";const status=message==="UNAUTHORIZED"?401:message==="FORBIDDEN"?403:message==="NOT_FOUND"?404:500;if(status===500)console.error("API request failed",error);return NextResponse.json({error:status===500?"The request could not be completed.":message},{status});}

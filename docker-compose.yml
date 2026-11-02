@@ -1,0 +1,21 @@
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    container_name: github-mapper-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: github_mapper
+      POSTGRES_USER: mapper
+      POSTGRES_PASSWORD: mapper_dev_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - mapper_data:/var/lib/postgresql/data
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/001_schema.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mapper -d github_mapper"]
+      interval: 5s
+      timeout: 4s
+      retries: 12
+volumes:
+  mapper_data:
